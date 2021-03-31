@@ -19,7 +19,21 @@ app.get('/', (req, res) => res.send('Hello World! how are you'))
 
 client.connect(err => {
   const collection = client.db("martdb").collection("grocery");
+  const clientInfo = client.db("martdb").collection("order");
 
+    app.get('/orderHistory',(req,res)=>{
+        clientInfo.find({}) 
+        .toArray((err,documents)=>{
+            res.send(documents)
+        })
+    })
+    app.post('/orderDetails',(req,res)=>{
+        const orderData = req.body ;
+        clientInfo.insertOne(orderData)
+        .then(result=>{
+            res.send(result.insertedCount>0)
+        })
+    })
     app.get('/findProduct/:id',(req,res)=>{
         const item = ObjectId(req.params.id);
         collection.find({_id : item})
