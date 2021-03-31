@@ -22,7 +22,7 @@ client.connect(err => {
   const clientInfo = client.db("martdb").collection("order");
 
     app.get('/orderHistory',(req,res)=>{
-        clientInfo.find({}) 
+        clientInfo.find({email : req.query.email}) 
         .toArray((err,documents)=>{
             res.send(documents)
         })
