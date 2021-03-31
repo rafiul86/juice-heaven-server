@@ -13,7 +13,7 @@
 __Beside this you may find it better in many other ways__
 
 
-This is the website [https://github.com/Porgramming-Hero-web-course/react-auth-rafiul86](https://github.com/Porgramming-Hero-web-course/react-auth-rafiul86) to view it in the browser.
+This is the website [https://hill-view-mart-client.web.app/](https://hill-view-mart-client.web.app/) to view it in the browser.
 
 > Developer option : use this to make functionality
 
