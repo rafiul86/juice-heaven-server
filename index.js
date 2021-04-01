@@ -21,6 +21,12 @@ client.connect(err => {
   const collection = client.db("martdb").collection("grocery");
   const clientInfo = client.db("martdb").collection("order");
     
+  app.delete('/deleteProduct/:id',(req,res)=>{
+    collection.deleteOne({_id : ObjectId(req.params.id)})
+    .then((result)=>{
+        res.send(result.deletedCount>0)
+    })
+})
     app.get('/orderHistory',(req,res)=>{
         clientInfo.find({email : req.query.email}) 
         .toArray((err,documents)=>{
@@ -28,8 +34,7 @@ client.connect(err => {
         })
     })
     app.post('/orderDetails',(req,res)=>{
-        const orderData = req.body ;
-        clientInfo.insertOne(orderData)
+        clientInfo.insertOne(req.body)
         .then(result=>{
             res.send(result.insertedCount>0)
         })
@@ -48,17 +53,11 @@ client.connect(err => {
         })
     })
     app.post('/addProduct',(req,res)=>{
-        const productData = req.body;
-        collection.insertOne(productData)
+        collection.insertOne(req.body)
         .then(result=>{
             res.send(result.insertedCount>0)
         })
     })
-
-
   console.log('Database connected successfully')
 });
-
-
-
 app.listen(port, () => console.log(`Example app listening on port port!`))
